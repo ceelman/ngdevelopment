@@ -78,20 +78,22 @@ class MainWindow(QtGui.QMainWindow):
 
     def readfiles(self):
         filename = QtGui.QFileDialog.getOpenFileName(self, "Import Models")
+        print filename
         file = open(filename, "r")
 
-##        with file:
-##            reader = vtk.vtkOBJReader()
-##            reader.SetFileName(filename)
-##
-##            mapper = vtk.vtkPolyDataMapper()
-##            if vtk.VTK_MAJOR_VERSION <= 5:
-##                mapper.SetInput(reader.GetOutput())
-##            else:
-##                mapper.SetInputConnection(reader.GetOutputPort())
-##
-##            actor = vtk.vtkActor()
-##            actor.SetMapper(mapper)
+        with file:
+            reader = vtk.vtkOBJReader()
+            reader.SetFileName(str(filename))
+
+            mapper = vtk.vtkPolyDataMapper()
+            if vtk.VTK_MAJOR_VERSION <= 5:
+                mapper.SetInput(reader.GetOutput())
+            else:
+                mapper.SetInputConnection(reader.GetOutputPort())
+
+            actor = vtk.vtkActor()
+            actor.SetMapper(mapper)
+            self.render.AddActor(actor)
 
                 
 
